@@ -389,13 +389,13 @@ class Funcionario {
 
 class CLT: Funcionario {
     override func calcularSalario() -> Double {
-        return self.salario * 0.70
+        return salario * 0.70
     }
 }
 
 class PJ: Funcionario {
     override func calcularSalario() -> Double {
-        return self.salario * 0.8
+        return salario * 0.8
     }
 }
 
@@ -404,3 +404,320 @@ var functionarios: [Funcionario] = [CLT(salario: 3000.0), PJ(salario: 5000)]
 for functionario in functionarios {
     print(functionario.calcularSalario())
 }
+
+// Desafios Aula 11/02/2026
+
+// DESAFIO 1
+
+enum Cargo {
+    case estagiario
+    case junior
+    case pleno
+    case senior
+}
+
+struct FuncionarioDados {
+    var nome: String
+    var idade: Int
+    var cargo: Cargo
+}
+
+class Funcionario1 {
+    private var dados: FuncionarioDados
+    private var salario: Double
+
+    init(dados: FuncionarioDados, salario: Double) {
+        self.dados = dados
+        self.salario = salario
+    }
+
+    func promover(novoCargo: Cargo) {
+        dados.cargo = novoCargo
+    }
+
+    func aumentarSalario(novoSalario: Double) {
+        if novoSalario > salario {
+            salario = novoSalario
+        }
+    }
+}
+
+var gabriel: Funcionario1 = Funcionario1(dados: FuncionarioDados(nome: "gabriel", idade: 24, cargo: Cargo.pleno), salario: 6000.0)
+
+gabriel.promover(novoCargo: Cargo.senior)
+gabriel.aumentarSalario(novoSalario: 123214124)
+
+// DESAFIO 2
+
+struct Produto {
+    var nome: String
+    var preco: Double
+}
+
+class Carrinho {
+    private var produtos: [Produto] = []
+
+    func adicionarProduto(novoProduto: Produto) {
+        produtos.append(novoProduto)
+    }
+
+    func removerProduto(produtoRemovido: Produto) {
+        produtos.removeAll { produto in
+            produtoRemovido.nome == produto.nome
+        }
+    }
+
+    func calcularTotal() -> Double {
+        var valorTotal: Double = 0
+        produtos.forEach { produto in
+            valorTotal += produto.preco
+        }
+
+        return valorTotal
+    }
+}
+
+// DESAFIO 3
+
+struct Cliente {
+    var nome: String
+    var cpf: String
+}
+
+class ContaBancaria {
+    var cliente: Cliente
+    var saldo: Double
+
+    init(cliente: Cliente) {
+        self.cliente = cliente
+        saldo = 0
+    }
+
+    func depositar(valor: Double) {
+        saldo += valor
+    }
+
+    func sacar(valor: Double) {
+        if valor > saldo {
+            return
+        } else {
+            saldo -= valor
+        }
+    }
+}
+
+// DESAFIO 4
+
+struct Aluno {
+    var nome: String
+    var matricula: Matricula
+}
+
+class Matricula {
+    var notas: [Double]
+
+    init(notas: [Double]) {
+        self.notas = notas
+    }
+
+    func calcularMedia() -> Double {
+        var valorTotalNota: Double = 0
+        notas.forEach { nota in
+            valorTotalNota += nota
+        }
+        var media = valorTotalNota / Double(notas.count)
+
+        return media
+    }
+
+    func situacao() -> String {
+        var media = calcularMedia()
+
+        if media >= 7 {
+            return "Aprovado"
+        } else {
+            return "Reprovado"
+        }
+    }
+}
+
+// 🧩 Desafio 5 — Frota de Veículos
+
+struct Veiculo {
+    var modelo: String
+    var placa: String
+}
+
+class Frota {
+    var veiculos: [Veiculo]
+
+    init(veiculos: [Veiculo]) {
+        self.veiculos = veiculos
+    }
+
+    func adicionarVeiculo(novoVeiculo: Veiculo) {
+        veiculos.append(novoVeiculo)
+    }
+
+    func listarVeiculos() {
+        veiculos.forEach { veiculo in
+            print("Veiculo modelo: \(veiculo.modelo) placa: \(veiculo.placa)")
+        }
+    }
+}
+
+// 🧩 Desafio 6 — Sistema de Animais
+
+class Animal {
+    func emitirSom() {
+        print("...")
+    }
+}
+
+class Cachorro: Animal {
+    override func emitirSom() {
+        print("Au au")
+    }
+}
+
+class Gato: Animal {
+    override func emitirSom() {
+        print("Miau")
+    }
+}
+
+// 🧩 Desafio 7 — Funcionários e Bônus
+
+class Funcionario2 {
+    var salario: Double
+
+    init(salario: Double) {
+        self.salario = salario
+    }
+
+    func bonus() -> Double {
+        return salario
+    }
+}
+
+class Gerente: Funcionario2 {
+    override func bonus() -> Double {
+        return salario * 0.20
+    }
+}
+
+class Dev: Funcionario2 {
+    override func bonus() -> Double {
+        return salario * 0.10
+    }
+}
+
+// 🧩 Desafio 8 — Formas Geométricas
+class Forma {
+    func area() -> Double {
+        return 0
+    }
+}
+
+class Quadrado: Forma {
+    var lado1: Double
+    var lado2: Double
+
+    init(lado1: Double, lado2: Double) {
+        self.lado1 = lado1
+        self.lado2 = lado2
+    }
+
+    override func area() -> Double {
+        return lado1 * lado2
+    }
+}
+
+class Circulo: Forma {
+    var raio: Double
+
+    init(raio: Double) {
+        self.raio = raio
+    }
+
+    override func area() -> Double {
+        return (raio * raio) * .pi
+    }
+}
+
+// 🧩 Desafio 9 — Pagamentos
+
+class Pagamento1 {
+}
+
+class Cartao: Pagamento1 {
+}
+
+class Boelto: Pagamento1 {
+}
+
+class Pix1: Pagamento1 {
+}
+
+// 🧩 Desafio 10 — Veículos
+
+class Veiculo1 {
+    func mover() {
+        print("")
+    }
+}
+
+class Carro: Veiculo1 {
+    override func mover() {
+        print("Movendo carro")
+    }
+}
+
+class Moto: Veiculo1 {
+    override func mover() {
+        print("Movendo moto")
+    }
+}
+
+// 🧩 Desafio 11 — Números Pares
+
+for number in 1 ... 100 {
+    if number % 2 == 0 {
+        print(number)
+    }
+}
+
+// 🧩 Desafio 12 — Soma de Compras
+
+var comprasArr: [Double] = [123.2, 42.4, 12.3, 10, 3.43]
+var somaCompleta: Double = 0
+for compra in comprasArr {
+    somaCompleta += compra
+}
+
+print("Soma das compras \(somaCompleta)")
+
+// 🧩 Desafio 13 — Tabuada
+
+let numero = 3
+
+for i in 1 ... 10 {
+    print("\(numero) x \(i) = \(numero * i)")
+}
+
+// 🧩 Desafio 14 — Contagem Regressiva
+
+for i in 0...10{
+    print (10 - i)
+}
+
+//🧩 Desafio 15 — Média de Notas
+
+var notas: [Double] = [8.5, 7.2, 9.8, 6.4, 10.0]
+var somaNotas: Double = 0
+for nota in notas {
+    somaNotas += nota
+}
+
+let mediaNotas: Double = somaNotas / Double(notas.count)
+print("A média das notas é \(mediaNotas)")
